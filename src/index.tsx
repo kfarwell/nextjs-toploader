@@ -17,7 +17,7 @@ export type NextTopLoaderProps = {
    * Color for the TopLoader.
    * @default "#29d"
    */
-  color?: string;
+  color?: string | string[];
   /**
    * The initial position for the TopLoader in percentage, 0.08 is 8%.
    * @default 0.08
@@ -95,7 +95,12 @@ const NextTopLoader = ({
   const defaultColor = '#29d';
   const defaultHeight = 3;
 
-  const color = propColor ?? defaultColor;
+  const background = Array.isArray(propColor)
+    ? `linear-gradient(to right, ${propColor.join(',')})`
+    : propColor ?? defaultColor;
+  const color = Array.isArray(propColor)
+    ? propColor[1] || propColor[0]
+    : propColor ?? defaultColor;
   const height = propHeight ?? defaultHeight;
 
   // Any falsy (except undefined) will disable the shadow
@@ -118,7 +123,7 @@ const NextTopLoader = ({
   const styles = (
     <style>
       {`#nprogress{pointer-events:none}#nprogress .bar{background:${
-        color
+        background
       };position:fixed;z-index:1031;${positionStyle.bar};left:0;width:100%;height:${
         height
       }px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;${
