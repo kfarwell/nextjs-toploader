@@ -60,6 +60,11 @@ export type NextTopLoaderProps = {
    * @ you can disable it by setting it to `false`
    */
   shadow?: string | false;
+  /**
+   * Position the TopLoader at the bottom instead of the top.
+   * @default false
+   */
+  bottom?: boolean;
 }
 
 let progressBarTimeout: ReturnType<typeof setTimeout> | undefined = undefined
@@ -85,6 +90,7 @@ const NextTopLoader = ({
   easing,
   speed,
   shadow,
+  bottom,
 }: NextTopLoaderProps) => {
   const defaultColor = '#29d';
   const defaultHeight = 3;
@@ -99,15 +105,25 @@ const NextTopLoader = ({
       ? `box-shadow:${shadow}`
       : `box-shadow:0 0 10px ${color},0 0 5px ${color}`;
 
+  const positionStyle = bottom
+    ? {
+        bar: 'bottom:0',
+        pegTransform: 'rotate(-3deg) translate(0px,calc(100% + 4px))',
+      }
+    : {
+        bar: 'top:0',
+        pegTransform: 'rotate(3deg) translate(0px,-4px)',
+      };
+
   const styles = (
     <style>
       {`#nprogress{pointer-events:none}#nprogress .bar{background:${
         color
-      };position:fixed;z-index:1031;top:0;left:0;width:100%;height:${
+      };position:fixed;z-index:1031;${positionStyle.bar};left:0;width:100%;height:${
         height
       }px}#nprogress .peg{display:block;position:absolute;right:0;width:100px;height:100%;${
         boxShadow
-      };opacity:1;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px)}#nprogress .spinner{display:block;position:fixed;z-index:1031;top:15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:${
+      };opacity:1;-webkit-transform:${positionStyle.pegTransform};-ms-transform:${positionStyle.pegTransform};transform:${positionStyle.pegTransform}}#nprogress .spinner{display:block;position:fixed;z-index:1031;top:15px;right:15px}#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:2px solid transparent;border-top-color:${
         color
       };border-left-color:${
         color
@@ -216,4 +232,5 @@ NextTopLoader.propTypes = {
     PropTypes.string,
     PropTypes.bool,
   ]),
+  bottom: PropTypes.bool,
 };

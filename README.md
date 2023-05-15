@@ -75,6 +75,7 @@ If no props are passed to `<NextTopLoader />`, below is the default configuratio
   easing="ease"
   speed={200}
   shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+  bottom={false}
 />
 ```
 
@@ -87,6 +88,7 @@ If no props are passed to `<NextTopLoader />`, below is the default configuratio
 - `crawl`: auto incrementing behavior for the TopLoader.
 - `showSpinner`: to show spinner or not.
 - `shadow`: a smooth shadow for the TopLoader. (set to `false` to disable it)
+- `bottom`: position the TopLoader at the bottom instead of the top.
 
 [![Sponsor me on GitHub](https://img.shields.io/badge/Sponsor%20me%20on-GitHub-brightgreen)](https://github.com/sponsors/TheSGJ)
 
