@@ -62,6 +62,19 @@ export type NextTopLoaderProps = {
   shadow?: string | false;
 }
 
+let progressBarTimeout: ReturnType<typeof setTimeout> | undefined = undefined
+
+const startProgressBar = () => {
+  clearTimeout(progressBarTimeout);
+  progressBarTimeout = setTimeout(NProgress.start, 200);
+}
+
+const stopProgressBar = () => {
+  clearTimeout(progressBarTimeout);
+  NProgress.done();
+}
+
+
 const NextTopLoader = ({
   color: propColor,
   height: propHeight,
@@ -149,17 +162,17 @@ const NextTopLoader = ({
           const isExternalLink = (anchor as HTMLAnchorElement).target === "_blank";
           const isAnchor = isAnchorOfCurrentUrl(currentUrl, newUrl);
           if (newUrl === currentUrl || isAnchor || isExternalLink) {
-            NProgress.start();
-            NProgress.done();
+            startProgressBar();
+            stopProgressBar();
             [].forEach.call(npgclass, function (el: Element) {
               el.classList.remove("nprogress-busy");
             });
           } else {
-            NProgress.start();
+            startProgressBar();
             (function (history) {
               const pushState = history.pushState;
               history.pushState = function () {
-                NProgress.done();
+                stopProgressBar();
                 [].forEach.call(npgclass, function (el: Element) {
                   el.classList.remove("nprogress-busy");
                 });
@@ -172,8 +185,8 @@ const NextTopLoader = ({
       } catch (err) {
         // Log the error in development only!
         // console.log('NextTopLoader error: ', err);
-        NProgress.start();
-        NProgress.done();
+        startProgressBar();
+        stopProgressBar();
       }
     }
 
