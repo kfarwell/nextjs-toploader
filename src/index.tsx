@@ -9,7 +9,6 @@
 /* eslint-disable prefer-const */
 /* eslint-disable quotes */
 
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import * as NProgress from 'nprogress';
 export type NextTopLoaderProps = {
