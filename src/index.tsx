@@ -217,18 +217,3 @@ const NextTopLoader = ({
   return styles;
 };
 export default NextTopLoader;
-
-NextTopLoader.propTypes = {
-  color: PropTypes.string,
-  height: PropTypes.number,
-  showSpinner: PropTypes.bool,
-  crawl: PropTypes.bool,
-  crawlSpeed: PropTypes.number,
-  initialPosition: PropTypes.number,
-  easing: PropTypes.string,
-  speed: PropTypes.number,
-  shadow: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
-};
