@@ -109,7 +109,7 @@ const NextTopLoader = ({
         --barInset: 0 auto auto 0;
         --pegTransform: rotate(3deg) translate(0px, -4px);
       }
-      @media (min-width: 640px) {
+      @media (min-width: 768px) {
         :root {
           --barInset: auto auto 0 0;
           --pegTransform: rotate(-3deg) translate(0px, calc(100% + 4px));
